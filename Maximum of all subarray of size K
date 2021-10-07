@@ -1,0 +1,40 @@
+#include<iostream>
+#include<vector>
+#include<deque>
+using namespace std;
+void print(int arr[],int n,int k)
+{
+    int j=0,i=0;
+    deque<int>q;
+    while(j<k)
+    {
+        while((!q.empty()) && arr[j]>=q.back())
+            q.pop_back();
+        q.push_back(arr[j]);
+        j++;
+    }
+    cout<<q.front()<<" ";
+    vector<int>vec;
+    while(j<n)
+    {
+        if(arr[i++]==q.front())
+            q.pop_front();
+        if((j-i+1)==k)
+        {
+            while(!q.empty() && arr[j]>q.back())
+                q.pop_back();    
+            q.push_back(arr[j]);
+            vec.push_back(q.front());
+        }   
+        j++;
+    }
+    for(auto it:vec)
+        cout<<it<<" ";
+}
+int main()
+{
+    int arr[]={1,4,2,5,4,8,4,8};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    print(arr,n,3);
+    return 0;
+}
