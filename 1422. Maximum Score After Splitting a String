@@ -1,0 +1,71 @@
+-----> BEST (ONE PASS) <-----
+class Solution {
+public:
+    int maxScore(string s) {
+        int n=s.size();
+        int ans=INT_MIN, zero=0, one=0;
+        for(int i=0; i<n-1; i++){
+            if(s[i] == '1'){
+                one++;
+            }
+            else{ zero++;
+            }
+            ans=max(ans , zero - one);
+        }
+        if(s[n-1]=='1'){
+            one++;
+        }
+        return ans + one;
+    
+    }
+};
+
+-----> BETTER (2 LOOP) <----- 
+class Solution {
+public:
+    int maxScore(string s) {
+        int n=size(s);
+        int ans=0, l_zero=0, l_one=0, t_one=0;
+        for(int i=0;i<n;i++){
+            if(s[i]=='1')
+                t_one++;
+        }
+        for(int i=0;i<n-1;i++){
+            if(s[i]=='0')
+                l_zero++;
+            else    l_one++;
+            int x = t_one - l_one;
+            ans = max(ans , l_zero+x);
+        }
+        return ans;
+    
+    }
+};
+
+-----> BRUTE <-----
+class Solution {
+public:
+    int maxScore(string s) {
+        int n=size(s);
+        int max=0;
+        for(int i=0;i<=n-2;i++){
+            int l=0 , r=0 , a=0;
+            for(int j=0;j<=i;j++){
+                //left
+                if(s[j]=='0')
+                    l++;
+            }
+            for(int j=i+1;j<n;j++){
+                //right
+                if(s[j]=='1')
+                    r++;
+            }
+            a = l +r;
+            if(a > max){
+                max=a;
+            }
+        }
+        return max;
+    
+    }
+};
